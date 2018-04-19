@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <title>Login Page</title>
+
+  <body>
+    <div class="container">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand">Test App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sign In</a>
+            </li>
+        </div>
+      </nav>
+
+      <div class="row">
+        <div class="col-6">
+          <h1>Login</h1>
+          <form action="/login" method="POST">
+            {% csrf_token %} 
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" id="email" value="mooner@andy-moon.com" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" id="password" value="11111111" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Log In</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-6">
+          <h1>Register</h1>
+          <form action="/registration" method="POST">
+            {% csrf_token %} {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+              <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Password Confirmation">
+            </div>
+            <div class="form-group">
+              <button type="sibmit" class="btn btn-outline-primary btn-lg btn-block">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <form action="/registration" method="POST" class="form-style-9">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <ul>
+      <h2>Welcome</h2>
+      <p>Rsgister</p>
+      <li>
+          <input type="text" name="name" class="field-style field-split align-left" placeholder="Name">
+          <input type="text" name="email" class="field-style field-split align-right" placeholder="email">
+      </li>
+      <p>*Password should be at least 8 characters</p>
+      <li>
+        <input type="password" name="password" class="field-style field-split align-left" placeholder="Password">
+        <input type="password" name="confirm" class="field-style field-split align-right" placeholder="Confirm PW"> 
+      </li>
+      <li>
+      <input type="submit" class="field-style align-left" value="Register">
+      </li>
+    </ul>
+  </form>
+  <form action="/login" method="POST" class="form-style-9">
+    {% csrf_token %}
+      <ul>
+        <p>Login</p>
+        <li>
+          <input type="text" name="email" class="field-style field-split align-left" placeholder="email">
+          <input type="password" name="password" class="field-style field-split align-right" placeholder="Password"> 
+        </li>
+        <li>
+          <input type="submit" class="field-style align-left" value="Login">
+        </li>
+      </ul>
+  </form>     -->
+  </body>
+
+</html>

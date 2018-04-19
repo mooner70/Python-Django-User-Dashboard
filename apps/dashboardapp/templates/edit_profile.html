@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+
+  <title>Edit User</title>
+</head>
+
+<body>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+
+
+  <div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand">Test App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Dashboard
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Log off</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-6">
+        <h5>Edit Profile</h5>
+        <form action="/registration" method="POST">
+          {% csrf_token %} {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <div class="form-group">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+          </div>
+          <div class="form-group">
+            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+          </div>
+          <div class="form-group">
+            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-6">
+        <h5>Change Password</h5>
+        <form action="/login" method="POST">
+          {% csrf_token %} {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <div class="form-group">
+            <input type="email" name="password" class="form-control" id="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <input type="password" name="pw_confirm" class="form-control" id="pw_confirm" placeholder="Password Confirmation">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Update Password</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <textarea class="form-control" id="Textarea" rows="3"></textarea>
+      <a class="btn btn-primary btn-lg float-right" href="/" role="button">Save</a>
+    </div>
+    <a class="btn btn-danger btn-lg btn-block" href="/" role="button">Start Page Test Button</a>
+
+  </div>
+</body>
+
+</html>
