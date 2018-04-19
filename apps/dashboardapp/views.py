@@ -51,6 +51,22 @@ def users_show(request, id):
         "user" : user
     }
     return render(request, 'user_info.html', context)
+def message_save(request):
+    user = User.objects.get(id=request.session["user_id"])
+    post = Message.objects.create(message=request.POST["message"], user=user)
+    return redirect("/users/show/message")
+def users_show_message(request):
+    user=User.objects.get(id=request.session["user_id"])
+    context = {
+        "user" : 
+    }
+
+
+
+
+    
+    return render(request, "user_info.html")
+
 def logout(request):
     request.session.flush()
     return redirect('/')

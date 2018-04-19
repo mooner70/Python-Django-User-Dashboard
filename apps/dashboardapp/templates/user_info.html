@@ -51,16 +51,16 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Leave a message for (name goes here)</span>
         </div>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+        <form action="/message/save" method="POST">
+          {% csrf_token %}
+          <textarea class="form-control" aria-label="With textarea" name="message"></textarea>
       </div>
       <br>
-      <a class="btn btn-primary btn-lg float-right" href="/" role="button">Post</a>
-      <a class="btn btn-danger btn-lg btn-block" href="/" role="button">Start Page Test Button</a>
-    </div>
-
-    <form action=""></form>
-    <form action=""></form>
-    </div>
+      <button type="submit" title="Save this post" class="btn btn-outline-primary btn-lg">Post</button>
+      </form>
   </body>
+  </div>
+
+  </div>
 
 </html>

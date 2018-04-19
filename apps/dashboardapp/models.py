@@ -8,6 +8,9 @@ password_regex = re.compile('^(?=\S{6,20}$)(?=.*?\d)(?=.*?[a-z])(?=.*?[A-Z])(?=.
 class RegManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
+        count = User.objects.filter(email=postData["email"]).count
+        if count > 0:
+            errors["email"] = "Email already registered"
         if len(postData["first_name"]) < 3:
             errors["first_name"] = "First name should be more than 3 characters"
         if len(postData["last_name"]) < 3:
