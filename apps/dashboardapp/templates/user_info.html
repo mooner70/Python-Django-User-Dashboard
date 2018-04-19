@@ -27,6 +27,9 @@
               <a class="nav-link" href="/dashboard/admin">Dashboard
                 <span class="sr-only">(current)</span>
               </a>
+              <a class="nav-link" href="/dashboard">User Dashboard
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Profile</a>
@@ -41,6 +44,7 @@
       <h5>Registered at: {{user.created_at}}</h5>
       <h5>User ID: {{user.id}}</h5>
       <h5>Email Address: {{user.email}}</h5>
+      <h5>User Level: {{user.user_level}}</h5>
       <h5>Description: {{user.description}}</h5>
       <p></p>
       <div class="input-group">

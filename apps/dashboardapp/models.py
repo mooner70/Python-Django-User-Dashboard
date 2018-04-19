@@ -9,11 +9,11 @@ class RegManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
         if len(postData["first_name"]) < 3:
-            errors["first_name"] = "Name should be more than 3 characters"
+            errors["first_name"] = "First name should be more than 3 characters"
         if len(postData["last_name"]) < 3:
-            errors["last_name"] = "Name should be more than 3 characters"
+            errors["last_name"] = "Last name should be more than 3 characters"
         if len(postData["email"]) < 3:
-            errors["email"] = "Username should be more than 3 characters"
+            errors["email"] = "Email should be more than 3 characters"
         if len(postData["password"]) < 8:
             errors["password"] = "Password should be more thatn 8 characters"
         # elif not password_regex.match(postData["password"]):  
@@ -23,35 +23,40 @@ class RegManager(models.Manager):
         return errors
     def login_validator(self, postData):
         errors = {}
-        print "models"
-        print postData
         if len(postData["email"]) < 3:
             errors["email"] = "Email should be more than 3 characters"
         if len(postData["password"]) < 8:
             errors["password"] = "Password must be longer than 8 characters"
         check = User.objects.filter(email=postData["email"])
         if len(check) == 0:
-            errors["email"] = "email test"
+            errors["email"] = "Must enter an email address"
             return errors
         if not bcrypt.checkpw(postData["password"].encode(), check[0].password.encode()):
             errors["password"] = "Password doesn't match"
         return errors
-    def add_validator(self, postData):
+    def pw_validator(self, postData):
         errors = {}
-        if len(postData["destination"]) < 1:
-            errors["destination"] = "Destination field cannot be empty"
-        if len(postData["description"]) < 1:
-            errors["description"] = "Description field cannot be empty"
-        if len(postData["travel_date_from"]) < 1:
-            errors["travel_date_from"] = "Travel Date From field cannot be empty"
-        if len(postData["travel_date_to"]) < 1:
-            errors["travel_date_to"] = "Travel Date To field cannot be empty"
-        if postData["travel_date_from"] < datetime.now().strftime("%Y-%m-%d"):
-            errors["travel_date_from"] = "Travel Date From needs to be in the future"   
-        
-        if postData["travel_date_to"] < postData["travel_date_from"]:
-            errors["travel_date_to"] = "Travel Date From needs to be in the future"
+        if len(postData["password"]) < 8:
+            errors["password"] = "Password must be longer than 8 characters"
+        if postData["password"] != postData["confirm_password"]:
+            errors["confirm_password"] = "Password confirmation does not match"
         return errors
+    # def add_validator(self, postData):
+    #     errors = {}
+    #     if len(postData["destination"]) < 1:
+    #         errors["destination"] = "Destination field cannot be empty"
+    #     if len(postData["description"]) < 1:
+    #         errors["description"] = "Description field cannot be empty"
+    #     if len(postData["travel_date_from"]) < 1:
+    #         errors["travel_date_from"] = "Travel Date From field cannot be empty"
+    #     if len(postData["travel_date_to"]) < 1:
+    #         errors["travel_date_to"] = "Travel Date To field cannot be empty"
+    #     if postData["travel_date_from"] < datetime.now().strftime("%Y-%m-%d"):
+    #         errors["travel_date_from"] = "Travel Date From needs to be in the future"   
+        
+    #     if postData["travel_date_to"] < postData["travel_date_from"]:
+    #         errors["travel_date_to"] = "Travel Date From needs to be in the future"
+    #     return errors
 class MessageManager(models.Manager):
   pass
 class CommentManager(models.Manager):

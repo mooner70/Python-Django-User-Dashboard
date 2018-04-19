@@ -2,29 +2,38 @@ from django.conf.urls import url
 from . import views
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^loginpage$', views.loginpage),
     url(r'^login$', views.login),
+    url(r'^loginpage$', views.loginpage),
     url(r'^registration$', views.registration),
-    url(r'^users/new$', views.admin_new), #admin only new
+    url(r'^users/show/(?P<id>\d+)$', views.users_show), 
     url(r'^dashboard/admin$', views.dash_admin),
-    url(r'^users/show/(?P<id>\d+)$', views.users_show),
-    # url(r'^users/show/fake$', views.users_show),
+    url(r'^admin/add/user$', views.admin_newuser), #admin only add new user
+    url(r'^users/new$', views.admin_new), #admin only add new user
+    url(r'^users/edit/(?P<id>\d+)$', views.admin_edit), #admin only edit user
     url(r'^logout$', views.logout),
-    # url(r'^users/edit/fake$', views.admin_edit), #fake admin edit page
-    url(r'^users/edit/(?P<id>\d+)$', views.admin_edit), #admin only edit
     url(r'^update/(?P<id>\d+)$', views.update_user), #admin only edit
-
-
-
-
-
-
-
-    url(r'^users/edit$', views.users_edit), #users edit page
+    url(r'^update/self/(?P<id>\d+)$', views.update_user_self), #user only edit
+    url(r'^updatepw/(?P<id>\d+)$', views.update_user_pw), #admin only edit
+    url(r'^updatepw/self$', views.update_user_pw_self), #user only edit
+    url(r'^remove/(?P<id>\d+)$', views.remove), #admin only edit
+    url(r'^users/edit/$', views.users_edit), #users edit page
     url(r'^dashboard$', views.dashboard),
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
     url(r'^users/create_comment$', views.create_comment),

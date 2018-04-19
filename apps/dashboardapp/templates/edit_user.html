@@ -44,7 +44,7 @@
             <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Log off</a>
+            <a class="nav-link" href="/">Log off</a>
           </li>
       </div>
     </nav>
@@ -73,7 +73,9 @@
           </div>
 
           <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" selected="user.user_level">
+            <p>Current user level: {{user.user_level}}</p>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              selected="user.user_level">
               User Level
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -84,7 +86,7 @@
           <br>
           <div class="form-group">
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Save</button>
-            <a class="btn btn-outline-primary btn-lg btn-block" href="/" role="button">Return to Dashboard</a>
+            <a class="btn btn-outline-primary btn-lg btn-block" href="/dashboard/admin" role="button">Return to Dashboard</a>
             <a class="btn btn-danger btn-lg btn-block" href="/" role="button">Start Page Test Button</a>
           </div>
         </form>
@@ -92,7 +94,7 @@
 
       <div class="col-6">
         <h5>Change Password</h5>
-        <form action="/login" method="POST">
+        <form action="/updatepw/{{user.id}}" method="POST">
           {% csrf_token %} {% if messages %}
           <ul class="messages">
             {% for message in messages %}
@@ -101,10 +103,10 @@
           </ul>
           {% endif %}
           <div class="form-group">
-            <input type="email" name="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
           </div>
           <div class="form-group">
-            <input type="password" name="pw_confirm" class="form-control" id="pw_confirm" placeholder="Password Confirmation">
+            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Password Confirmation">
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Update Password</button>

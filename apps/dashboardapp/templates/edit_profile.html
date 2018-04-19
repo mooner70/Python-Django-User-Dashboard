@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
     crossorigin="anonymous">
 
-  <title>Edit User</title>
+  <title>Edit Profile</title>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Dashboard
+            <a class="nav-link" href="/dashboard">Dashboard
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -44,7 +44,7 @@
             <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Log off</a>
+            <a class="nav-link" href="/logout">Log off</a>
           </li>
         </ul>
       </div>
@@ -53,7 +53,7 @@
     <div class="row">
       <div class="col-6">
         <h5>Edit Profile</h5>
-        <form action="/registration" method="POST">
+        <form action="/update/self/{{user.id}}" method="POST">
           {% csrf_token %} {% if messages %}
           <ul class="messages">
             {% for message in messages %}
@@ -62,15 +62,19 @@
           </ul>
           {% endif %}
           <div class="form-group">
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+            <input type="email" name="email" class="form-control" id="email" value="{{user.email}}">
           </div>
           <div class="form-group">
-            <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+            <input type="text" name="first_name" class="form-control" id="first_name" value="{{user.first_name}}">
           </div>
           <div class="form-group">
-            <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+            <input type="text" name="last_name" class="form-control" id="last_name" value="{{user.last_name}}">
           </div>
 
+          <div class="form-group">
+            <label for="Textarea">Description</label>
+            <textarea class="form-control" id="Textarea" name="description" rows="3" value="{{user.description}}"></textarea>
+          </div>
           <div class="form-group">
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Save</button>
           </div>
@@ -79,7 +83,7 @@
 
       <div class="col-6">
         <h5>Change Password</h5>
-        <form action="/login" method="POST">
+        <form action="/updatepw/self" method="POST">
           {% csrf_token %} {% if messages %}
           <ul class="messages">
             {% for message in messages %}
@@ -91,7 +95,7 @@
             <input type="email" name="password" class="form-control" id="password" placeholder="Password">
           </div>
           <div class="form-group">
-            <input type="password" name="pw_confirm" class="form-control" id="pw_confirm" placeholder="Password Confirmation">
+            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Password Confirmation">
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Update Password</button>
@@ -100,10 +104,8 @@
       </div>
 
     </div>
-    <div class="form-group">
-      <textarea class="form-control" id="Textarea" rows="3"></textarea>
-      <a class="btn btn-primary btn-lg float-right" href="/" role="button">Save</a>
-    </div>
+
+
     <a class="btn btn-danger btn-lg btn-block" href="/" role="button">Start Page Test Button</a>
 
   </div>
