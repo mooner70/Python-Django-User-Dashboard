@@ -19,7 +19,7 @@ class RegManager(models.Manager):
             errors["email"] = "Email should be more than 3 characters"
         if len(postData["password"]) < 8:
             errors["password"] = "Password should be more thatn 8 characters"
-        # elif not password_regex.match(postData["password"]):  
+        # elif not password_regex.match(postData["password"]):
         #     errors["password"] = "Invalid password"
         if postData["password"] != postData["confirm_password"]:
             errors["confirm_password"] = "Password confirmation does not match"
@@ -55,8 +55,8 @@ class RegManager(models.Manager):
     #     if len(postData["travel_date_to"]) < 1:
     #         errors["travel_date_to"] = "Travel Date To field cannot be empty"
     #     if postData["travel_date_from"] < datetime.now().strftime("%Y-%m-%d"):
-    #         errors["travel_date_from"] = "Travel Date From needs to be in the future"   
-        
+    #         errors["travel_date_from"] = "Travel Date From needs to be in the future"
+
     #     if postData["travel_date_to"] < postData["travel_date_from"]:
     #         errors["travel_date_to"] = "Travel Date From needs to be in the future"
     #     return errors
@@ -78,6 +78,7 @@ class User(models.Model):
 class Message(models.Model):
     message = models.CharField(max_length=255)
     user = models.ForeignKey(User, related_name = "messages")
+    receiver = models.IntegerField(null = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = MessageManager()

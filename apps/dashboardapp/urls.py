@@ -5,8 +5,8 @@ urlpatterns = [
     url(r'^login$', views.login),
     url(r'^loginpage$', views.loginpage),
     url(r'^registration$', views.registration),
-    url(r'^users/show/(?P<id>\d+)$', views.users_show), 
-    url(r'^users/show/message$', views.users_show_message), 
+    url(r'^users/show/(?P<id>\d+)$', views.users_show),
+    url(r'^users/show/message/(?P<receiver_id>\d+)$', views.users_show_message),
     url(r'^dashboard/admin$', views.dash_admin),
     url(r'^admin/add/user$', views.admin_newuser), #admin only add new user
     url(r'^users/new$', views.admin_new), #admin only add new user
@@ -19,27 +19,15 @@ urlpatterns = [
     url(r'^remove/(?P<id>\d+)$', views.remove), #admin only edit
     url(r'^users/edit/$', views.users_edit), #users edit page
     url(r'^dashboard$', views.dashboard),
-    url(r'^message/save$', views.message_save),
+    url(r'^message/save/(?P<receiver_id>\d+)$', views.message_save),
+    url(r'^users/comment_save/(?P<message_id>\d+)$', views.comment_save),
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
     url(r'^users/create_comment$', views.create_comment),
-    url(r'^users/create_message$', views.create_message),
     # url(r'^admin/remove$', views.admin_remove),
     # url(r'^admin/create$', views.admin_create),
   ]

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-# from .models import User  
+# from .models import User
 from models import *
 import bcrypt
 def registration(request):
@@ -47,25 +47,39 @@ def admin_newuser(request):
     return redirect("/dashboard/admin")
 def users_show(request, id):
     user=User.objects.get(id=id)
+    messages = Message.objects.filter(receiver = id)
     context = {
-        "user" : user
+        "user" : user,
+        "messages" : messages
     }
     return render(request, 'user_info.html', context)
-def message_save(request):
+
+def message_save(request, receiver_id):
     user = User.objects.get(id=request.session["user_id"])
-    post = Message.objects.create(message=request.POST["message"], user=user)
-    return redirect("/users/show/message")
-def users_show_message(request):
-    user=User.objects.get(id=request.session["user_id"])
+    post = Message.objects.create(message=request.POST["message"], user=user, receiver= receiver_id)
+    return redirect("/users/show/message/" +str(receiver_id))
+
+def comment_save(request, message_id):
+    user = User.objects.get(id=request.session["user_id"])
+    m = Message.objects.get(id=message_id)
+    receiver = m.receiver
+    print "rr", receiver
+    comment = Comment.objects.create(comment=request.POST["comment"], user=user, message = m)
+    return redirect("/users/show/message/" +str(receiver))
+
+def users_show_message(request, receiver_id ):
+    user =User.objects.get(id=request.session["user_id"])
+    receiver = User.objects.get(id = receiver_id)
+    #messages = Message.objects.exclude( user = user)
+    messages = Message.objects.filter(receiver = receiver_id).order_by("-created_at")
+    comments = Comment.objects.all().order_by("message_id")
+
     context = {
-        "user" : 
-    }
-
-
-
-
-    
-    return render(request, "user_info.html")
+        "user" : receiver,
+        "messages" : messages,
+        "comments" : comments
+        }
+    return render(request, "user_info.html", context)
 
 def logout(request):
     request.session.flush()
@@ -143,48 +157,47 @@ def dashboard(request):
     return render(request, "dashboard.html", context)
 
 
-
-
-
-
-
-
 def create_comment(request, id):
-    return redirect('users/show/'+id)
-def create_message(request, id):
-    return redirect('users/show/'+id)
-
-
-
-
-
-
-def add(request):
-    errors = TravelPlans.objects.add_validator(request.POST)
-    if len(errors):
-        for tag, error in errors.iteritems():
-            messages.error(request, error, extra_tags=tag)
-        return redirect("/travels/add")
-    else:
-        a = User.objects.get(name=request.session['name'])
-        TravelPlans.objects.create(destination=request.POST["destination"], description=request.POST["description"], travel_date_from=request.POST["travel_date_from"], travel_date_to=request.POST["travel_date_to"], user = a)
-        return redirect("/travels")
-def travels(request):
-    c = User.objects.get(id=request.session["user_id"])
-    d = User.objects.exclude(id=request.session["user_id"])
+    user =User.objects.get(id=request.session["user_id"])
+    receiver = User.objects.get(id = receiver_id)
+    #messages = Message.objects.exclude( user = user)
+    comments = Comment.objects.filter(receiver = receiver_id)
     context = {
-        "travel_plans" : TravelPlans.objects.filter(user = c),
-        "others_plans" : TravelPlans.objects.filter(user = d),
-        "joined_plans" : TravelPlans.objects.filter(travelers=request.session["user_id"])}
-    return render(request, 'travels.html', context)
-def destination(request, id):
-    context = {
-        "travel_plans" : TravelPlans.objects.get(id=id)
+        "user" : receiver,
+        "comments" : comment
         }
-    return render(request, 'destination.html', context)
-def join(request, id):
-    userjoin = User.objects.get(id=request.session["user_id"])
-    e = TravelPlans.objects.get(id=id)
-    userjoin.trips.add(e)  
-    return redirect('/travels')
-    # e.travelers=request.session["user_id"]
+    return redirect("/users/show/comments/" +str(receiver_id))
+
+
+
+
+
+# def add(request):
+#     errors = TravelPlans.objects.add_validator(request.POST)
+#     if len(errors):
+#         for tag, error in errors.iteritems():
+#             messages.error(request, error, extra_tags=tag)
+#         return redirect("/travels/add")
+#     else:
+#         a = User.objects.get(name=request.session['name'])
+#         TravelPlans.objects.create(destination=request.POST["destination"], description=request.POST["description"], travel_date_from=request.POST["travel_date_from"], travel_date_to=request.POST["travel_date_to"], user = a)
+#         return redirect("/travels")
+# def travels(request):
+#     c = User.objects.get(id=request.session["user_id"])
+#     d = User.objects.exclude(id=request.session["user_id"])
+#     context = {
+#         "travel_plans" : TravelPlans.objects.filter(user = c),
+#         "others_plans" : TravelPlans.objects.filter(user = d),
+#         "joined_plans" : TravelPlans.objects.filter(travelers=request.session["user_id"])}
+#     return render(request, 'travels.html', context)
+# def destination(request, id):
+#     context = {
+#         "travel_plans" : TravelPlans.objects.get(id=id)
+#         }
+#     return render(request, 'destination.html', context)
+# def join(request, id):
+#     userjoin = User.objects.get(id=request.session["user_id"])
+#     e = TravelPlans.objects.get(id=id)
+#     userjoin.trips.add(e)
+#     return redirect('/travels')
+#     # e.travelers=request.session["user_id"]

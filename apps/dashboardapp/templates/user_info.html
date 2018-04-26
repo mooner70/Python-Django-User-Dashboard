@@ -13,7 +13,7 @@
   <title>User Information</title>
 
   <body>
-    <div class="container">
+    <div class="container col-8">
 
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand">Test App</a>
@@ -40,27 +40,99 @@
           </ul>
         </div>
       </nav>
-      <h4>{{user.first_name}} {{user.last_name}}</h4>
-      <h5>Registered at: {{user.created_at}}</h5>
-      <h5>User ID: {{user.id}}</h5>
-      <h5>Email Address: {{user.email}}</h5>
-      <h5>User Level: {{user.user_level}}</h5>
-      <h5>Description: {{user.description}}</h5>
-      <p></p>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Leave a message for (name goes here)</span>
+      <br>
+      <div class="card col-6">
+        <div class="card-body">
+          <h4>{{user.first_name}} {{user.last_name}}</h4>
+          <h5>Registered at: {{user.created_at}}</h5>
+          <h5>User ID: {{user.id}}</h5>
+          <h5>Email Address: {{user.email}}</h5>
+          <h5>User Level: {{user.user_level}}</h5>
+          <h5>Description: {{user.description}}</h5>
         </div>
-        <form action="/message/save" method="POST">
-          {% csrf_token %}
-          <textarea class="form-control" aria-label="With textarea" name="message"></textarea>
       </div>
       <br>
-      <button type="submit" title="Save this post" class="btn btn-outline-primary btn-lg">Post</button>
-      </form>
-  </body>
-  </div>
 
-  </div>
+      <!-- <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Leave a message for {{user.first_name}}</span>
+        </div>
+        <div class="form-inline">
+          <form action="/message/save/{{user.id}}" method="POST">
+            {% csrf_token %}
+            <textarea class="form-control" aria-label="With textarea" name="message"></textarea>
+            <button type="submit" title="Save this post" class="btn btn-outline-primary btn-lg">Post</button>
+          </form>
+        </div>
+      </div> -->
+
+      <!-- <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Leave a message for {{user.first_name}}" name="message" aria-label="Recipient's username"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <form action="/message/save/{{user.id}}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-secondary" type="button">Post</button>
+          </form>
+        </div>
+      </div> -->
+
+      <form action="/message/save/{{user.id}}" method="POST" class="form-inline">
+        {% csrf_token %}
+        <input type="text" class="form-control mb-2 mr-sm-2 col-10" name="message" id="inlineFormInputName2" placeholder="Leave a message for {{user.first_name}}">
+
+        <button type="submit" title="Save Message" class="btn btn-primary mb-2">Message</button>
+      </form>
+
+
+      <br> {% if messages %} {% for message in messages %} 
+      <div class="ml-3">
+        <textarea cols="60" rows="1">*message* {{message.message}}</textarea>
+
+      </div>
+
+      <!-- <div class="input-group ml-5">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Leave a comment</span>
+        </div>
+        <div class="form-inline">
+          <form action="/users/comment_save/{{message.id}}" method="POST">
+            {% csrf_token %}
+            <textarea class="form-control" aria-label="With textarea" name="comment"></textarea>
+            <button type="submit" title="Save this comment" class="btn btn-outline-primary btn-lg">Post</button>
+          </form>
+        </div>
+      </div> -->
+
+      {% for comment in message.comments.all %}
+      <div class="ml-3">
+        <textarea cols="60" rows="1">*comment* {{comment.comment}}</textarea>
+      </div>
+     {% endfor %}
+
+      <!-- <div class="input-group col-9 mb-5">
+        <input type="text" class="form-control" placeholder="Leave a comment" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <form action="/users/comment_save/{{message.id}}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-secondary" type="button">Post</button>
+          </form>
+        </div>
+      </div> -->
+
+
+      <form action="/users/comment_save/{{message.id}}" method="POST" class="form-inline">
+        {% csrf_token %}
+        <input type="text" class="form-control mt-5 mb-5 mr-sm-2 col-9" name="comment" id="inlineFormInputName2" placeholder="Leave a comment">
+
+        <button type="submit" title="Save Comment" class="btn btn-primary mt-5 mb-5">Comment</button>
+      </form>
+
+      {% endfor%} {% endif %}
+
+    </div>
+    <!--container div-->
+
+  </body>
 
 </html>
