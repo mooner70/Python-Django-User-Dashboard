@@ -44,7 +44,7 @@ pycparser==2.18
 Pydap==3.2.2
 pylint==1.9.2
 pytz==2018.4
-PyYAML==3.12
+PyYAML==5.4
 requests==2.18.4
 scipy==1.1.0
 singledispatch==3.4.0.3
